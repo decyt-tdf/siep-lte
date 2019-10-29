@@ -23,8 +23,8 @@ RUN chmod 777 /var/www/html/storage -R
 RUN chmod 777 /var/www/html/bootstrap -R
 RUN composer install --ignore-platform-reqs
 
-RUN wget https://api.github.com/repos/MaTiUs77/siep-lte/commits/master && mv master /var/www/html/storage/app/public/master.json
-RUN wget https://api.github.com/repos/MaTiUs77/siep-lte/commits/developer && mv developer /var/www/html/storage/app/public/developer.json
+RUN wget https://api.github.com/repos/decyt-tdf/siep-lte/commits/master && mv master /var/www/html/storage/app/public/master.json
+RUN wget https://api.github.com/repos/decyt-tdf/siep-lte/commits/developer && mv developer /var/www/html/storage/app/public/developer.json
 
 # Modifica todo los permisos
 RUN chown -R www-data:www-data /var/www/html
