@@ -68,7 +68,8 @@
                 let download = JSON.parse(JSON.stringify(query));
                 download.export = 1;
                 download.por_pagina = 'all';
-                download.estado_inscripcion = 'NO CONFIRMADA';
+                download.estado_inscripcion = 'CONFIRMADA';
+                download.division = 'con'
 
                 axios.get(vm.apigw+'/api/public/siep_admin/v1/matriculas/v1/matriculas_por_seccion',{
                     params: download,
@@ -100,6 +101,8 @@
                 let download = JSON.parse(JSON.stringify(this.query));
                 download.export = 2;
                 download.por_pagina = 'all';
+                download.estado_inscripcion = 'CONFIRMADA';
+                download.division = 'con';
 
                 axios.get(vm.apigw+'/api/public/siep_admin/v1/matriculas/v1/matriculas_por_seccion',{
                     params: download,
