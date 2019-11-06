@@ -1767,7 +1767,8 @@ __webpack_require__.r(__webpack_exports__);
       var download = JSON.parse(JSON.stringify(query));
       download["export"] = 1;
       download.por_pagina = 'all';
-      download.estado_inscripcion = 'NO CONFIRMADA';
+      download.estado_inscripcion = 'CONFIRMADA';
+      download.division = 'con';
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(vm.apigw + '/api/public/siep_admin/v1/matriculas/v1/matriculas_por_seccion', {
         params: download,
         responseType: 'blob'
@@ -1795,6 +1796,8 @@ __webpack_require__.r(__webpack_exports__);
       var download = JSON.parse(JSON.stringify(this.query));
       download["export"] = 2;
       download.por_pagina = 'all';
+      download.estado_inscripcion = 'CONFIRMADA';
+      download.division = 'con';
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(vm.apigw + '/api/public/siep_admin/v1/matriculas/v1/matriculas_por_seccion', {
         params: download,
         responseType: 'blob'
@@ -31901,8 +31904,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/diego/Project/siep-developer/siep-lte/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/diego/Project/siep-developer/siep-lte/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/diego/Project/siep-developer/forks/siep-lte/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/diego/Project/siep-developer/forks/siep-lte/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
