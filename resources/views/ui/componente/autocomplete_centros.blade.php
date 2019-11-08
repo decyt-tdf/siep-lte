@@ -6,7 +6,11 @@
             $('.autocomplete-centros').select2({
                 ajax: {
                     language: "es",
-                    url: "http://localhost:7777/api/v1/centros",
+                    url: "{{ env('SIEP_API_GW_INGRESS') }}/api/v1/centros",
+                    headers: {
+                        "X-SIEP-AUTH" : "JWT",
+                        "Authorization" : "Bearer {{ \App\Http\Controllers\Api\ApiLogin::token() }}",
+                    },
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
