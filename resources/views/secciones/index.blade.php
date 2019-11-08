@@ -27,6 +27,11 @@
               @else
                     @include('secciones.componentes.tabla',['data'=>$secciones])
               @endif
+
+                  <code>$apiParams</code>
+                  <pre>
+                      @JSON($params,JSON_PRETTY_PRINT)
+                  </pre>
               </div>
               <div class="col-md-3">
                   <div class="box collapsed-box">

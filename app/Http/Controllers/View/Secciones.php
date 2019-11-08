@@ -32,7 +32,7 @@ class Secciones extends Controller
             'order_dir'=> 'asc'
         ];
 
-        $params = array_merge($default,$params);
+        $params = mergeApiParam($default,$params);
 
         $token = ApiLogin::token();
         $api = new ApiMatriculasCuantitativas($token);
