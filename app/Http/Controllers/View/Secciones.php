@@ -17,7 +17,7 @@ class Secciones extends Controller
     {
         $ciclo = Carbon::now()->year;
 
-        if(request('ciclo')) {
+        if(request('ciclo')&& is_numeric(request('ciclo'))) {
             $ciclo =  request('ciclo');
         }
 
@@ -38,7 +38,7 @@ class Secciones extends Controller
         $api = new ApiMatriculasCuantitativas($token);
         $secciones = $api->getPorSeccion($params);
 
-        $data = compact('ciclo','secciones');
+        $data = compact('ciclo','secciones','params');
         return view('secciones.index',$data);
     }
 
