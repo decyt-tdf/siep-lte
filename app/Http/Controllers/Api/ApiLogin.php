@@ -39,7 +39,7 @@ class ApiLogin extends Controller
         return redirect()->route('home');
     }
 
-    private function getUserData($token) {
+    public function getUserData($token) {
         $authRoute = env('SIEP_AUTH_API').'/me';
         $params = [
             'token' => $token
@@ -92,5 +92,9 @@ class ApiLogin extends Controller
     }
     public static function token() {
         return session('token');
+    }
+
+    public static function apikey() {
+        return env('X_SIEP_APIKEY');
     }
 }
