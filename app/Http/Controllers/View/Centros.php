@@ -73,4 +73,9 @@ class Centros extends Controller
         $data = compact('centro','secciones','ciclo','inscripciones');
         return view('centros.view',$data);
     }
+
+    public function mapa()
+    {
+        return view('centros.mapa');
+    }
 }
