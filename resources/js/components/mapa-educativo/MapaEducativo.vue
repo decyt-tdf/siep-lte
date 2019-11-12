@@ -46,8 +46,10 @@
             </v-select>
           </div>
           <div class="col-xs12 col-md-12 col-lg-12 col-xl-12 space-between">
-            <button type="button" class="btn btn-success btn-block" @click="findInstitution()">
-              <i class="fa fa-search"></i>Buscar
+            <button type="button" class="btn btn-success btn-block" @click="findInstitution()" :disabled="searching">
+              <i v-if="searching" class="fa fa-refresh fa-spin"></i>
+              <i v-else class="fa fa-search"></i>
+              Buscar
             </button>
           </div>
           <hr>
@@ -100,32 +102,7 @@
         </div>
       </div>
     </div>
-      
-      <!-- 
-
-        <v-flex xs12 sm12 md12 lg12 xl12>
-            <v-btn
-              class="mx-0"
-              color="primary"
-              v-scroll-to="{
-                el: '#results',
-                duration: 500,
-                easing: 'ease-in-out',
-                offset: -100,
-                force: true,
-                cancelable: true,
-                onDone: findInstitution,
-                x: false,
-                y: true
-              }"
-              :loading="searching"
-              ref="button"
-            >
-                <v-icon left large>search</v-icon>Buscar
-            </v-btn>
-        </v-flex> -->
-        
-    </div>
+  </div>
 </template>
 
 <script>
@@ -231,6 +208,7 @@
         var vm = this;
         vm.searching = true;
         vm.markers = [];
+        console.log("Filtros: ",vm.filtro)
 
         const curl = axios.create({
           baseURL: vm.apigw
@@ -335,6 +313,5 @@
     padding-top:5px;
     padding-bottom:5px;
   }
-
 
 </style>

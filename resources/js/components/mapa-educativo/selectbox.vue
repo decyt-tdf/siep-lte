@@ -4,24 +4,16 @@
     :options="items"
     v-model="select"
     :placeholder="placeholder"
+    @input="hasSelected"
     >
   </v-select>
   </template>
 
 <script>
   import axios from 'axios'
-  // import vueSelect from 'vue-select2'
-
-    // // Select2
-    // $('.js-example-basic-single').select2({
-    //   placeholder: 'Select an option'
-    // });
 
   export default {
     props: ['placeholder','form','text','custom','selected'],
-    // components: {
-    //   vueSelect
-    // },
     data () {
       return {
         apigw: process.env.SIEP_API_GW_INGRESS || 'http://localhost:7777',
@@ -62,7 +54,6 @@
           baseURL: vm.apigw
         });
 
-        console.log('Api GW: ',vm.apigw+'/api/public/siep_admin/v1/forms/'+vm.form)
         curl.get(vm.apigw+'/api/public/siep_admin/v1/forms/'+vm.form)
         .then(function (response) {
           let render = response.data.map(function(x) {
@@ -82,7 +73,6 @@
           });
 
           vm.items = render;
-          console.log("Items", vm.items)
           vm.loading = false;
         })
         .catch(function (error) {
