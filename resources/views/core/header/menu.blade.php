@@ -21,7 +21,7 @@
     </ul>
 </li>
 
-<li class="{{request()->is('centros*') ? ' active' : ''}}"><a href="{{ route('centros.mapa') }}">Mapa educativo</a></li>
+<li class="{{request()->is('centros/mapa') ? ' active' : ''}}"><a href="{{ route('centros.mapa') }}">Mapa educativo</a></li>
 
 <!-- Ayuda -->
 <li class="dropdown">
