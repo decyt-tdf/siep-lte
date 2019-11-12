@@ -2186,31 +2186,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
  // import * as easings from 'vuetify/es5/util/easing-patterns'
 
 
@@ -2310,6 +2285,7 @@ __webpack_require__.r(__webpack_exports__);
       var vm = this;
       vm.searching = true;
       vm.markers = [];
+      console.log("Filtros: ", vm.filtro);
       var curl = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
         baseURL: vm.apigw
       });
@@ -2398,17 +2374,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
- // import vueSelect from 'vue-select2'
-// // Select2
-// $('.js-example-basic-single').select2({
-//   placeholder: 'Select an option'
-// });
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['placeholder', 'form', 'text', 'custom', 'selected'],
-  // components: {
-  //   vueSelect
-  // },
   data: function data() {
     return {
       apigw: process.env.SIEP_API_GW_INGRESS || 'http://localhost:7777',
@@ -2446,7 +2415,6 @@ __webpack_require__.r(__webpack_exports__);
       var curl = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
         baseURL: vm.apigw
       });
-      console.log('Api GW: ', vm.apigw + '/api/public/siep_admin/v1/forms/' + vm.form);
       curl.get(vm.apigw + '/api/public/siep_admin/v1/forms/' + vm.form).then(function (response) {
         var render = response.data.map(function (x) {
           var getValue = 'nombre';
@@ -2465,7 +2433,6 @@ __webpack_require__.r(__webpack_exports__);
           };
         });
         vm.items = render;
-        console.log("Items", vm.items);
         vm.loading = false;
       })["catch"](function (error) {
         vm.error = true;
@@ -2567,7 +2534,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.scrollable-content[data-v-4b8d4313] {\n  height: 550px;\n  background: white;\n  -webkit-box-flex: 1;\n          flex-grow: 1;\n\n  overflow: auto;\n\n  /* for Firefox */\n  min-height: 0;\n}\n.scrollable-content-mobile[data-v-4b8d4313] {\n  height: 600px;\n  background: white;\n  -webkit-box-flex: 1;\n          flex-grow: 1;\n\n  overflow: auto;\n\n  /* for Firefox */\n  min-height: 0;\n}\n.space-between[data-v-4b8d4313] {\n  padding-top:5px;\n  padding-bottom:5px;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.scrollable-content[data-v-4b8d4313] {\n  height: 550px;\n  background: white;\n  -webkit-box-flex: 1;\n          flex-grow: 1;\n\n  overflow: auto;\n\n  /* for Firefox */\n  min-height: 0;\n}\n.scrollable-content-mobile[data-v-4b8d4313] {\n  height: 600px;\n  background: white;\n  -webkit-box-flex: 1;\n          flex-grow: 1;\n\n  overflow: auto;\n\n  /* for Firefox */\n  min-height: 0;\n}\n.space-between[data-v-4b8d4313] {\n  padding-top:5px;\n  padding-bottom:5px;\n}\n\n", ""]);
 
 // exports
 
@@ -21535,7 +21502,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-success btn-block",
-                    attrs: { type: "button" },
+                    attrs: { type: "button", disabled: _vm.searching },
                     on: {
                       click: function($event) {
                         return _vm.findInstitution()
@@ -21543,8 +21510,10 @@ var render = function() {
                     }
                   },
                   [
-                    _c("i", { staticClass: "fa fa-search" }),
-                    _vm._v("Buscar\n          ")
+                    _vm.searching
+                      ? _c("i", { staticClass: "fa fa-refresh fa-spin" })
+                      : _c("i", { staticClass: "fa fa-search" }),
+                    _vm._v("\n            Buscar\n          ")
                   ]
                 )
               ]
@@ -21675,6 +21644,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("v-select", {
     attrs: { label: "text", options: _vm.items, placeholder: _vm.placeholder },
+    on: { input: _vm.hasSelected },
     model: {
       value: _vm.select,
       callback: function($$v) {
