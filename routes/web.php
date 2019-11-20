@@ -22,6 +22,7 @@ Route::group(['middleware'=>'auth.api'],function(){
     Route::resource('repitentes', 'View\Repitentes');
     Route::resource('pases', 'View\Pases');
 
+    Route::get('centros/mapa','View\Centros@mapa')->name('centros.mapa');
     Route::resource('centros', 'View\Centros');
     Route::resource('secciones', 'View\Secciones');
 
