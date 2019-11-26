@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\Util\ApiAuthMode;
 use App\Http\Controllers\Api\Util\ApiConsume;
 use App\Http\Controllers\Controller;
 
 class ApiRoles extends Controller
 {
-    public $token;
-    public function __construct($token)
+    public $authMode;
+    public function __construct(ApiAuthMode $authMode)
     {
-        $this->token = $token;
+        $this->authMode= $authMode;
     }
-
+    
     public function getAll($params=[]) {
-        $api = new ApiConsume(env('SIEP_AUTH_API'),$this->token);
+        $api = new ApiConsume($this->authMode);
+        $api->setHost(env('SIEP_AUTH_API'));
+
         $api->get("acl/role",$params);
         if($api->hasError()) { return $api->getError(); }
         $response = $api->response();
@@ -25,7 +28,9 @@ class ApiRoles extends Controller
     public function add($name) {
         $params['name'] = $name;
 
-        $api = new ApiConsume(env('SIEP_AUTH_API'),$this->token);
+        $api = new ApiConsume($this->authMode);
+        $api->setHost(env('SIEP_AUTH_API'));
+
         $api->post("acl/role",$params);
         if($api->hasError()) { return $api->getError(); }
         $response = $api->response();
@@ -34,8 +39,11 @@ class ApiRoles extends Controller
     }
 
     public function del($id) {
+        $api = new ApiConsume($this->authMode);
+        $api->setHost(env('SIEP_AUTH_API'));
+
         $params['id'] = $id;
-        $api = new ApiConsume(env('SIEP_AUTH_API'),$this->token);
+
         $api->delete("acl/role",$params);
         if($api->hasError()) { return $api->getError(); }
         $response = $api->response();

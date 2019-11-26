@@ -5,7 +5,7 @@
       <section class="content-header">
         <h1>
           Inscripciones
-          <small>Alumnos del ciclo {{ $ciclo }}</small>
+          <small>Alumnos del ciclo {{ $params['ciclo'] }}</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-home"></i> Alumnado</a></li>

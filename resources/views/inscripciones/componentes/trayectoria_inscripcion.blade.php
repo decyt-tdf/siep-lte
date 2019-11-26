@@ -11,26 +11,47 @@
           <div class="row">
               <div class="col-md-12">
                   <div class="box box-widget widget-user">
-                      <div class="widget-user-header bg-blue-active">
-                     <span class="pull-right">
-                        <small>
-                            #{{ $inscripcion['id'] }}
-                        </small>
-                      </span>
+                        @php
+                            $headerStyle = '';
+                            switch($inscripcion['centro']['nivel_servicio'])
+                            {
+                            case 'Común - Inicial':
+                                $headerStyle = '';
+                            break;
+                            case 'Común - Primario':
+                                $headerStyle = 'bg-info';
+                            break;
+                            case 'Común - Secundario':
+                                $headerStyle = 'bg-primary';
+                            break;
+                            }
+                        @endphp
+                      <div class="widget-user-header {{$headerStyle}}">
+                          <span class="pull-right">
+                                <small>
+                                    #{{ $inscripcion['id'] }}
+                                </small>
+                            </span>
 
                           <h5 class="widget-user-desc">{{ $inscripcion['tipo_inscripcion'] }}</h5>
                           <h4>{{ $inscripcion['centro']['nombre'] }}</h4>
-                          @foreach($inscripcion['curso'] as $curso)
-                              <div>
-                                  {{ $curso['anio'] }}
-                                  {{ $curso['division'] }}
-                                  {{ $curso['turno'] }}
-                              </div>
-                              <small>
-                                  {{ $curso['tipo'] }}
-                              </small>
-                          @endforeach
+                                  <div class="row">
+                                  @foreach($inscripcion['curso'] as $curso)
+                                      <div class="col-sm-2">
+                                          <div>
+                                              {{ $curso['anio'] }}
+                                              {{ $curso['division'] }}
+                                              {{ $curso['turno'] }}
+                                          </div>
+                                          <small>
+                                              {{ $curso['tipo'] }}
+                                          </small>
+                                      </div>
+                                  @endforeach
+                                  </div>
+                                  <!-- /.row -->
                       </div>
+                      <!-- /.widget-user-header -->
                       <div class="box-footer no-padding">
                           <div class="row">
                               <div class="col-sm-6 border-right">
@@ -50,8 +71,9 @@
                               @include('inscripciones.componentes.trayectoria_extra')
                           </div>
                       </div>
-                      <!-- /.row -->
+                      <!-- /.box-footer-->
                   </div>
+                  <!-- /.box-widget -->
               </div>
               <div class="col-md-12">
                   <div class="box box-primary">

@@ -60,6 +60,13 @@ class ApiAuthMode extends Controller
                 ]);
                 break;
         }
+
+        // DEPRECAR
+        $this->addCakeHeader();
+    }
+
+    private function addCakeHeader() {
+        $this->headers['headers'][env('XHOSTCAKE')] = 'do';
     }
 
     private function setHeaders($headers) {
