@@ -33,22 +33,22 @@
               </td>
               <td>
                   <b>
-                      {{ $dt['actual']['centro']['nombre'] }}
+                      {{ $dt['desde']['centro']['nombre'] }}
                   </b>
                   <br>
-                  {{ $dt['actual']['curso']['anio'] }}
-                  {{ $dt['actual']['curso']['division'] }}
-                  {{ $dt['actual']['curso']['turno'] }}
+                  {{ $dt['desde']['curso']['anio'] }}
+                  {{ $dt['desde']['curso']['division'] }}
+                  {{ $dt['desde']['curso']['turno'] }}
               </td>
               <td>
-                  @if(isset($dt['anterior']['centro']['nombre']))
+                  @if(isset($dt['hacia']['centro']['nombre']))
                       <b>
-                          {{ $dt['anterior']['centro']['nombre'] }}
+                          {{ $dt['hacia']['centro']['nombre'] }}
                       </b>
                       <br>
-                      {{ $dt['anterior']['curso']['anio'] }}
-                      {{ $dt['anterior']['curso']['division'] }}
-                      {{ $dt['anterior']['curso']['turno'] }}
+                      {{ $dt['hacia']['curso']['anio'] }}
+                      {{ $dt['hacia']['curso']['division'] }}
+                      {{ $dt['hacia']['curso']['turno'] }}
                   @else
                       <div class="callout callout-danger">
                           <h4>Error!</h4>

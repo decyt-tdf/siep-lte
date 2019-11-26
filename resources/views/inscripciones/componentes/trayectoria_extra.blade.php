@@ -16,6 +16,15 @@
 </div>
 <!-- /.col -->
 @endisset
+@isset($inscripcion['egreso_id'])
+<div class="col-sm-12">
+    <div class="description-block">
+        <span class="description-text">Egreso: #{{ $inscripcion['egreso_id'] }}</span>
+    </div>
+    <!-- /.description-block -->
+</div>
+<!-- /.col -->
+@endisset
 
 @if(!empty($inscripcion['tipo_baja']))
     <div class="col-sm-12">

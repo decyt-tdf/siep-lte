@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ApiCiclos;
 use App\Http\Controllers\Api\ApiInscripciones;
 use App\Http\Controllers\Api\ApiLogin;
 use App\Http\Controllers\Api\ApiTrayectoria;
+use App\Http\Controllers\Api\Util\ApiAuthMode;
 use App\Http\Controllers\Api\Util\ApiConsume;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -18,27 +19,35 @@ class Inscripciones extends Controller
 
     public function index()
     {
-        $token = ApiLogin::token();
+        $auth = new ApiAuthMode();
 
-        $api = new ApiInscripciones($token);
-        $inscripciones = $api->getAll(request()->all());
+        $ciclo = Carbon::now()->year;
 
-        // Todos los ciclos
-        $apiCiclos = new ApiCiclos($token);
-        $ciclos = $apiCiclos->getAll();
-        $ciclos =  $ciclos['ciclos'];
+        if(request('ciclo')&& is_numeric(request('ciclo'))) {
+            $ciclo =  request('ciclo');
+        }
 
-        $data = compact('inscripciones','ciclos','params');
-        $data['ciclo'] = request('ciclo');
-        $data['estado_inscripcion'] = request('estado_inscripcion');
+        $params = request()->all();
+
+        $default = [
+            'ciclo' => $ciclo,
+            'estado_inscripcion'=> 'CONFIRMADA'
+        ];
+
+        $params = mergeApiParam($default,$params);
+
+        $api = new ApiInscripciones($auth);
+        $inscripciones = $api->getAll($params);
+
+        $data = compact('inscripciones','params','auth');
 
         return view('inscripciones.index',$data);
     }
 
     public function show($id)
     {
-        $token = ApiLogin::token();
-
+        $auth = new ApiAuthMode();
+        
         $relaciones = [
             'inscripcion.alumno.familiares.familiar.persona.ciudad'
         ];
@@ -46,7 +55,7 @@ class Inscripciones extends Controller
         $default['with'] = join(',',$relaciones);
         $params = array_merge($params,$default);
 
-        $api = new ApiInscripciones($token);
+        $api = new ApiInscripciones($auth);
         $data = $api->getId($id,$params);
 
         if($api->error) {
@@ -61,7 +70,7 @@ class Inscripciones extends Controller
             $persona= $alumno['persona'];
             $familiares = $alumno['familiares'];
 
-            $api = new ApiTrayectoria($token);
+            $api = new ApiTrayectoria($auth);
             $trayectoria_alumno = $api->get($persona['id']);
 
             $data = compact('inscripcion','centro','alumno','persona','familiares','trayectoria_alumno');

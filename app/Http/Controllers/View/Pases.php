@@ -67,15 +67,21 @@ class Pases extends Controller
     }
 
     public function store() {
-        $api = new ApiPases(ApiLogin::token());
         $params = request()->all();
+
         if(isset($params['nota_pase_tutor']) && $params['nota_pase_tutor'] == 'on') {
             $params['nota_pase_tutor'] = true;
         } else {
             $params['nota_pase_tutor'] = false;
         }
-        $params['fecha_vencimiento'] = Carbon::parse($params['fecha_vencimiento'])->format('Y-m-d');
+        if(isset($params['fecha_vencimiento'])) {
+            $params['fecha_vencimiento'] = Carbon::createFromFormat('d/m/Y',$params['fecha_vencimiento'])->format('Y-m-d');
+        }
+
+        $api = new ApiPases(ApiLogin::token());
         $store = $api->store($params);
-        return $store;
+
+        $render = compact('store');
+        return view('pases.stored',$render);
     }
 }

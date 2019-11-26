@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\View;
 
 use App\Http\Controllers\Api\ApiCiclos;
+use App\Http\Controllers\Api\ApiEgresos;
 use App\Http\Controllers\Api\ApiLogin;
 use App\Http\Controllers\Api\ApiPromocionados;
 use App\Http\Controllers\Api\Util\ApiAuthMode;
@@ -9,7 +10,7 @@ use App\Http\Controllers\Api\Util\ApiConsume;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
-class Promocionados extends Controller
+class Egresos extends Controller
 {
     public function index()
     {
@@ -24,16 +25,16 @@ class Promocionados extends Controller
         $params = request()->all();
         $default = [
             'ciclo' => $ciclo,
-            'estado_inscripcion' => 'CONFIRMADA',
+            //'estado_inscripcion' => ['CONFIRMADA','EGRESO'],
             'page' => request('page')
         ];
         $params = array_merge($default,$params);
 
-        $api = new ApiPromocionados($auth);
-        $promocionados = $api->getAll($params);
+        $api = new ApiEgresos($auth);
+        $egresos = $api->getAll($params);
 
-        $data = compact('promocionados','ciclo','auth');
+        $data = compact('egresos','ciclo','auth');
 
-        return view('promocionados.index',$data);
+        return view('egresos.index',$data);
     }
 }
