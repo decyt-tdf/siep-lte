@@ -47,7 +47,7 @@ class Centros extends Controller
             'centro_id' => $id,
             'por_pagina' => 'all',
             'ciclo' => Carbon::now()->year,
-            'estado_inscripcion'=> 'CONFIRMADA',
+            'estado_inscripcion'=> ['CONFIRMADA','EGRESO'],
             'division'=> 'con',
             'order'=> 'anio',
             'order_dir'=> 'asc'
