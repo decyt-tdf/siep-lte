@@ -21,18 +21,15 @@ class ApiConsume extends Controller
     private $response;
     private $download = false;
 
-    public function __construct($host=null, $token=null)
+    public function __construct(ApiAuthMode $authMode)
     {
-        if($token) {
-            $this->tokenHeader($token);
-        }
-        if($host) {
-            $this->host = $host;
-        } else {
-            $this->host = env('SIEP_LARAVEL_API');
-        }
+        $this->host = env('SIEP_LARAVEL_API');
+        $this->headers = $authMode->headers;
+    }
 
-        $this->cakeHeader();
+    public function setHost($host=null)
+    {
+        $this->host = $host;
     }
 
     public function forceDownload() {
@@ -57,11 +54,10 @@ class ApiConsume extends Controller
         return $this->response;
     }
 
-    public function cakeHeader() {
-        $this->headers['headers'][env('XHOSTCAKE')] = 'do';
-    }
-    public function tokenHeader($token) {
-        $this->headers['headers']['Authorization'] = "Bearer {$token}";
+    public function setHeaders($headers) {
+        $this->headers = [
+            'headers' => $headers
+        ];
     }
 
     private function generateUri($route) {

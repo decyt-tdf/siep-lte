@@ -19,6 +19,7 @@
               <th>Matriculas</th>
               <th>Promociones</th>
               <th>Repitencias</th>
+              <th>Egresos</th>
               <th>Vacantes</th>
           </tr>
           @foreach($data->groupBy('anio') as $anio => $items)
@@ -30,6 +31,7 @@
               <td>{{ $items->sum('matriculas')  }}</td>
               <td>{{ $items->sum('promociones')  }}</td>
               <td>{{ $items->sum('repitencias')  }}</td>
+              <td>{{ $items->sum('egresos')  }}</td>
               <td>{{ $items->sum('vacantes')  }}</td>
           </tr>
           @endforeach

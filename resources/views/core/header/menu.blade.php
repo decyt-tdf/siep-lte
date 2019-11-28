@@ -17,11 +17,12 @@
         <li class="active"><a href="{{ url('inscripciones') }}">Inscripciones</a></li>
         <li><a href="{{ route('promocionados.index') }}">Promocionados</a></li>
         <li><a href="{{ route('repitentes.index') }}">Repitentes</a></li>
+        <li><a href="{{ route('egresos.index') }}">Egresos</a></li>
         <li><a href="{{ route('pases.index') }}">Pases</a></li>
     </ul>
 </li>
 
-<li class="{{request()->is('secciones*') ? ' active' : ''}}"><a href="#">Mapa educativo</a></li>
+<li class="{{request()->is('centros/mapa') ? ' active' : ''}}"><a href="{{ route('centros.mapa') }}">Mapa educativo</a></li>
 
 <!-- Ayuda -->
 <li class="dropdown">

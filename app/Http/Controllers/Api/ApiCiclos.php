@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\Util\ApiAuthMode;
 use App\Http\Controllers\Api\Util\ApiConsume;
 use App\Http\Controllers\Controller;
 
 class ApiCiclos extends Controller
 {
-    public $token;
-    public function __construct($token)
+    public $authMode;
+    public function __construct(ApiAuthMode $authMode)
     {
-        $this->token = $token;
+        $this->authMode= $authMode;
     }
 
     public function getAll()
     {
-        $api = new ApiConsume();
+        $api = new ApiConsume($this->authMode);
         $api->get("api/forms/ciclos");
         if($api->hasError()) { return $api->getError(); }
         $ciclos = $api->response();

@@ -104,4 +104,17 @@
         </div>
     </div>
     <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h3>{{ $data->sum('egresos') }}</h3>
+                <p>Egresos</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-user"></i>
+            </div>
+        </div>
+    </div>
+    <!-- ./col -->
 </div>

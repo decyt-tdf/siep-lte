@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\Util\ApiAuthMode;
 use App\Http\Controllers\Api\Util\ApiConsume;
 use App\Http\Controllers\Controller;
 
 class ApiConstancia extends Controller
 {
-    public $token;
+    public $auth;
     public $error;
 
-    public function __construct($token)
+    public function __construct(ApiAuthMode $auth)
     {
-        $this->token = $token;
+        $this->auth = $auth;
     }
 
     public function inscripcionPDF($inscripcion_id)
     {
-        $api = new ApiConsume();
+        $api = new ApiConsume($this->auth);
         $api->forceDownload();
         $api->get("api/v1/constancia/{$inscripcion_id}");
 
@@ -32,7 +33,7 @@ class ApiConstancia extends Controller
     }
     public function regularPDF($inscripcion_id)
     {
-        $api = new ApiConsume();
+        $api = new ApiConsume($this->auth);
         $api->forceDownload();
         $api->get("api/v1/constancia_regular/{$inscripcion_id}");
 
