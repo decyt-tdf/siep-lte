@@ -20,7 +20,10 @@ Route::group(['middleware'=>'auth.api'],function(){
     Route::resource('inscripciones', 'View\Inscripciones');
     Route::resource('promocionados', 'View\Promocionados');
     Route::resource('repitentes', 'View\Repitentes');
+
+    Route::get('egresos/exportar/excel','View\Egresos@exportarExcel')->name('egresos.exportar.excel');
     Route::resource('egresos', 'View\Egresos');
+
     Route::resource('pases', 'View\Pases');
 
     Route::get('centros/mapa','View\Centros@mapa')->name('centros.mapa');
