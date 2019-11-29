@@ -37,4 +37,31 @@ class Egresos extends Controller
 
         return view('egresos.index',$data);
     }
+
+    public function exportarExcel() {
+        $params = request()->all();
+        $default = [
+            'exportar' => 'excel',
+            'por_pagina' => 'all',
+        ];
+
+        $params = array_merge($default,$params);
+
+        if(!isset($params['ciclo']))
+        {
+            return ['error' => 'Debe especificar el ciclo'];
+        }
+
+        $auth = new ApiAuthMode();
+        $api = new ApiConsume($auth);
+        $api->forceDownload();
+        $api->get("api/v1/egreso",$params);
+
+        if($api->hasError()) { return $api->getError(); }
+
+        $response = $api->response();
+        return response($response)
+            ->header('Content-Type','application/vnd.ms-excel')
+            ->header('Content-Disposition','attachment; filename=ListaDeEgreso.xls');
+    }
 }

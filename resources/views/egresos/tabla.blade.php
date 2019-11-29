@@ -10,28 +10,33 @@
       <h3 class="box-title">Registros en total: {{ $total }}</h3>
       <div class="box-tools">
           <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
-              <input type="text" name="table_search" class="form-control pull-right" placeholder="Buscar">
-
-              <div class="input-group-btn">
-                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-              </div>
+              <form method="GET" action="{{ route('egresos.exportar.excel') }}">
+                  <input type="hidden" name="ciclo" value="2019">
+                  <input type="hidden" name="centro_id" value="19">
+                  <button type="submit" class="btn btn-success"><i class="fa fa-download"></i> Exportar a excel</button>
+              </form>
           </div>
       </div>
   </div>
-  <!-- /.box-header -->
+    <!-- /.box-header -->
   <div class="box-body table-responsive no-padding">
       <table class="table table-hover table-striped table-bordered">
           <tbody><tr>
               <th>Nombre</th>
               <th>Desde</th>
               <th>Hacia</th>
+              <th>Hermano</th>
           </tr>
           @foreach($data['data'] as $dt)
           <tr>
               <td>
-                  <a href="{{ route('inscripciones.show',$dt['inscripcion']['id']) }}">{{ $dt['inscripcion']['persona']['nombre_completo'] }}</a>
+                  <a href="{{ route('inscripciones.show',$dt['desde']['inscripcion']['id']) }}">{{ $dt['alumno']['persona']['nombre_completo'] }}</a>
+                  <br>
+                  DNI: {{ $dt['alumno']['persona']['documento_nro'] }}
               </td>
               <td>
+                  {{ $dt['desde']['inscripcion']['tipo_inscripcion'] }}
+                  <br>
                   <b>
                       {{ $dt['desde']['centro']['nombre'] }}
                   </b>
@@ -42,6 +47,8 @@
               </td>
               <td>
                   @if(isset($dt['hacia']['centro']['nombre']))
+                      {{ $dt['hacia']['inscripcion']['tipo_inscripcion'] }}
+                      <br>
                       <b>
                           {{ $dt['hacia']['centro']['nombre'] }}
                       </b>
@@ -54,12 +61,17 @@
                           <h4>Error!</h4>
 
                           <p>
-                              No se localizo la inscripcion <a href="{{ route('inscripciones.show',$dt['inscripcion']['promocion_id']) }}" target="_blank">#{{ $dt['inscripcion']['promocion_id'] }}</a>
+                              No fue posible obtener la inscripcion de egreso
                           </p>
-                      </div>                  @endif
+                      </div>
+                  @endif
               </td>
               <td>
-                  <a href="{{ url('inscripciones',$dt['inscripcion']['id']) }}" class="btn btn-sm btn-default"><i class="fa fa-eye"></i></a>
+                  @if(isset($dt['hacia']['hermano']['nombre_completo']))
+                      {{ $dt['hacia']['hermano']['nombre_completo'] }}
+                      <br>
+                      DNI: {{ $dt['hacia']['hermano']['documento_nro'] }}
+                  @endif
               </td>
           </tr>
           @endforeach
